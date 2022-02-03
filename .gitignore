@@ -6,14 +6,15 @@ scratch/
 notebooks/
 
 #pointrcnn
-pointrcnn/
+pointrcnn/tools/gt_database/
+pointrcnn/multi_data
+pointrcnn/pretrained_ckpt/
+pointrcnn/pointnet2_lib/
+pointrcnn/output/
 
 #downloads
 download/
 scripts/dataset/
-
-#groundtruths
-pointrcnn/tools/gt_database/
 
 #others
 statnorm.png
