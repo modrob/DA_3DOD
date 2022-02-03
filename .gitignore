@@ -9,7 +9,6 @@ notebooks/
 pointrcnn/tools/gt_database/
 pointrcnn/multi_data
 pointrcnn/pretrained_ckpt/
-pointrcnn/pointnet2_lib/
 pointrcnn/output/
 
 #downloads
