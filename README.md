@@ -1,11 +1,14 @@
 # DA_3DOD
+This is the repository of the diploma thesis `Applied Domain Adaptation on 3D Object Detection` by Moritz Drobnitzky (2022)
 
 ## Dependencies
 - [Python 3.6.10](https://www.python.org/downloads/)
 - [PyTorch(1.0.0)](http://pytorch.org)
 
 further package dependencies are listed in requirements.txt
-
+    ```bash
+    pip install -r requirements.txt
+    ```
 
 ## Usage
 
@@ -240,7 +243,7 @@ srun python train_rcnn.py --train_mode rcnn --batch_size $BATCH_SIZE --epochs $E
 ### Inference
 ```bash
 cd pointrcnn/tools/
-python eval_rcnn.py --ckpt /path/to/checkpoint.pth --dataset $dataset --output_dir $output_dir 
+python eval_rcnn.py --ckpt pointrcnn/output/training/$PATH_TO_CKPT_PTH --dataset $DATASET --output_dir pointrcnn/output/evaluation/$OUTPUT_DIR --cfg_file ./cfgs/CFG_FILE_YAML
 ```
 
 ### Evaluation
@@ -251,7 +254,7 @@ We provide [evaluation code](evaluate/evaluate.py#L279) with
 
 ```bash
 cd evaluate/
-python evaluate.py --result_path $predictions --dataset_path $dataset_root --metric [old/new]
+python evaluate.py --result_path $/pointrcnn/output/evaluation/INFERENCE_OUTPUT_DIR --dataset_path /pointrcnn/multi_data/$DATASET_PATH --label_split_file /pointrcnn/multi_data/LABLE_SPLIT_FILE_PATH --metric [old/new]
 ```
 
 Read all evaluation results and write them into .csv-file:
