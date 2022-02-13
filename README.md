@@ -6,6 +6,7 @@ This is the repository of the diploma thesis `Applied Domain Adaptation on 3D Ob
 - [PyTorch(1.0.0)](http://pytorch.org)
 
 further package dependencies are listed in requirements.txt
+
     ```bash
     pip install -r requirements.txt
     ```
@@ -43,29 +44,23 @@ For performance and bias reasons, we subsample the NuScenes and Waymo Open Datas
 We choose a random selection of both datasets, so that we receive 7600 test-frames, 3750 training-frames and 3800 validation-frames
 
 For Waymo:
-  Download all files
-    Treat validation as sample pool for test dataset
-      7600 test / 200 = ca 38 files
+- Download all files
+- Treat validation as sample pool for test dataset: 7600 test / 200 = ca 38 files
 
     ```bash
     rm -f $(find . -type f | shuf -n 152)
     ```
 
-    Treat Training as Sample pool for Train + Validation
-    (3750 train + 3800 val) / 200 = 38 files
+- Treat Training as Sample pool for Train + Validation: (3750 train + 3800 val) / 200 = 38 files
     
     ```bash
     rm -f $(find . -type f | shuf -n 748)
     ```
 
 For NuScenes:
-  Treat Training as Sample pool for Test Dataset
-    7600 test / 40 = ca 190 scenes
-    download 4 files 
+- Treat Training as Sample pool for Test Dataset: 7600 test / 40 = ca 190 scenes --> download 4 files 
 
-  Treat Training as Sample pool for Train + Validation
-    (3750 train + 3800 val) / 40 = ca 190 scenes  round up to 340
-    download 4 files
+- Treat Training as Sample pool for Train + Validation: (3750 train + 3800 val) / 40 = ca 190 scenes --> download 4 files
 
 3. Convert all datasets to `KITTI format`.
 
@@ -76,9 +71,9 @@ For NuScenes:
     ```
 
 4. Split validation set
-    Generate Waymo Split:
+Generate Waymo Split:
     ```bash
-    #    choose 7600 test-frames, 3750 training-frames and 3800
+    #choose 7600 test-frames, 3750 training-frames and 3800
     #random list of generated frames:
     l = list(range(0,9929))
     l_train = random.sample(l, 3750)
@@ -104,9 +99,10 @@ For NuScenes:
     with open('/scratch/ws/1/s1510289-KITTI/test.txt', mode='wt', encoding='utf-8') as myfile:
         myfile.write('\n'.join(l_test))
     ```
+ 
+Generate nuScenes Split:
+    ```bash
     
-    Generate nuScenes Split:
-    ```bash    
     #choose 7600 test-frames, 3750 training-frames and 3800:
     #training: 8573 only even number 0, 2, 4 … , 17144
     #testing: 8572 only odd numbers 1 , 3, … , 17143
@@ -138,7 +134,7 @@ For NuScenes:
     with open('/scratch/ws/1/s1510289-KITTI/test.txt', mode='wt', encoding='utf-8') as myfile:
         myfile.write('\n'.join(l_test))
 
-    We provide the `train`/`val` split used in our experiments under [split](split/) folder.
+We provide the `train`/`val` split used in our experiments under [split](split/) folder.
     
     ```bash
     cd split/
