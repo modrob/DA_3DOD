@@ -7,9 +7,9 @@ This is the repository of the diploma thesis `Applied Domain Adaptation on 3D Ob
 
 further package dependencies are listed in requirements.txt
 
-    ```bash
-    pip install -r requirements.txt
-    ```
+```bash
+pip install -r requirements.txt
+```
 
 ## Usage
 
@@ -71,7 +71,8 @@ For NuScenes:
     ```
 
 4. Split validation set
-Generate Waymo Split:
+
+    Generate Waymo Split:
     ```bash
     #choose 7600 test-frames, 3750 training-frames and 3800
     #random list of generated frames:
@@ -99,10 +100,10 @@ Generate Waymo Split:
     with open('/scratch/ws/1/s1510289-KITTI/test.txt', mode='wt', encoding='utf-8') as myfile:
         myfile.write('\n'.join(l_test))
     ```
- 
-Generate nuScenes Split:
+
+    Generate nuScenes Split:
     ```bash
-    
+
     #choose 7600 test-frames, 3750 training-frames and 3800:
     #training: 8573 only even number 0, 2, 4 … , 17144
     #testing: 8572 only odd numbers 1 , 3, … , 17143
@@ -133,9 +134,10 @@ Generate nuScenes Split:
 
     with open('/scratch/ws/1/s1510289-KITTI/test.txt', mode='wt', encoding='utf-8') as myfile:
         myfile.write('\n'.join(l_test))
+    ```    
 
-We provide the `train`/`val` split used in our experiments under [split](split/) folder.
-    
+    We provide the `train`/`val` split used in our experiments under [split](split/) folder.
+
     ```bash
     cd split/
     python replace_split.py
@@ -208,29 +210,29 @@ We use [PointRCNN](https://arxiv.org/abs/1812.04244) to validate our method.
 ### Self-Training
 1. Inference of source model on target data
 2. Sampling of pseudo-labels
-```bash
-cd pipeline_scripts/self_training
-python inference_sample.py $INFERENCE_DIR_PATH $PSEUDO_LABEL_OUTPUT_FILE
-```
+    ```bash
+    cd pipeline_scripts/self_training
+    python inference_sample.py $INFERENCE_DIR_PATH $PSEUDO_LABEL_OUTPUT_FILE
+    ```
 
 3. Moving pseudo-labels to multidata
-```bash
-cd pipeline_scripts/self_training
-./mv_inf_sample_to_multidata.sh $INFERNCE_SAMPLE_TEXTFILE $SOURCE_MODEL $TARGET_DATASET
-```
+    ```bash
+    cd pipeline_scripts/self_training
+    ./mv_inf_sample_to_multidata.sh $INFERNCE_SAMPLE_TEXTFILE $SOURCE_MODEL $TARGET_DATASET
+    ```
 
 4. Generate new ground-truth
-```bash
-cd pointrcnn/tools/
-srun python generate_gt_database.py --root ./pointrcnn/multi_data/$DATASET --save_dir ./gt_database/$SAVE_DIR --self_training $GT_DATABASE_FILENAME --self_training_textfile SELFTRAINING_SAMPLE_TEXTFILE
-```
+    ```bash
+    cd pointrcnn/tools/
+    srun python generate_gt_database.py --root ./pointrcnn/multi_data/$DATASET --save_dir ./gt_database/$SAVE_DIR --self_training $GT_DATABASE_FILENAME --self_training_textfile SELFTRAINING_SAMPLE_TEXTFILE
+    ```
 
 5. Training
 
-```bash
-cd pointrcnn/tools
-srun python train_rcnn.py --train_mode rcnn --batch_size $BATCH_SIZE --epochs $EPOCHS --root /pointrcnn/multi_data/$DATASET --cfg_file cfgs/CFG_FILE_YAML --gt_database gt_database/$GT_DATABASE_FILENAME --output_dir /pointrcnn/output/training/$OUTPUT_DIR --ckpt /pointrcnn/pretrained_ckpt/SELFTRAINING_CKPT_PTH [--subsample $NUMBER_OF_SUBSAMPLE --shuffle_subsample [True/False]] --self_training $PSEUDO_LABEL_DIR --self_training_textfile $INFERNCE_SAMPLE_TEXTFILE
-```
+    ```bash
+    cd pointrcnn/tools
+    srun python train_rcnn.py --train_mode rcnn --batch_size $BATCH_SIZE --epochs $EPOCHS --root /pointrcnn/multi_data/$DATASET --cfg_file cfgs/CFG_FILE_YAML --gt_database gt_database/$GT_DATABASE_FILENAME --output_dir /pointrcnn/output/training/$OUTPUT_DIR --ckpt /pointrcnn/pretrained_ckpt/SELFTRAINING_CKPT_PTH [--subsample $NUMBER_OF_SUBSAMPLE --shuffle_subsample [True/False]] --self_training $PSEUDO_LABEL_DIR --self_training_textfile $INFERNCE_SAMPLE_TEXTFILE
+    ```
 
 6. Inference
 7. Evaluation
