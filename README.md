@@ -1,5 +1,5 @@
 # DA_3DOD
-This is the repository of the diploma thesis `Applied Domain Adaptation on 3D Object Detection` by Moritz Drobnitzky (2022). The codebase is based on [3D_adapt_auto_driving](https://github.com/cxy1997/3D_adapt_auto_driving).
+This is the repository of the diploma thesis `Applied Domain Adaptation in LiDAR-based 3D Object Detection` by Moritz Drobnitzky (2022). The codebase is based on [3D_adapt_auto_driving](https://github.com/cxy1997/3D_adapt_auto_driving).
 
 ## Dependencies
 - [Python 3.6.10](https://www.python.org/downloads/)
